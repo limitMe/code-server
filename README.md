@@ -193,3 +193,28 @@ enterprise offering.
 
 If you would like to commercialize code-server, please contact
 contact@coder.com.
+
+## LimitMe Code Server
+
+In this fork, I updated dockerfile so Let's Encrypt can handle https at the beginning.
+
+After modified the dockerfile, make it an image:
+
+```
+sudo docker image build -t z-code-server:0.1 . ||  say "finish"
+```
+
+Then check images id by `docker images`
+
+Login aliyun docker repo via 
+
+```
+sudo docker login --username=ceo@myaiol.com registry.cn-chengdu.aliyuncs.com
+```
+
+Tag and push the image
+
+```
+sudo docker tag [imageID] registry.cn-chengdu.aliyuncs.com/limme/code-server:[tag]
+sudo docker push registry.cn-chengdu.aliyuncs.com/limme/code-server:[tag]
+```

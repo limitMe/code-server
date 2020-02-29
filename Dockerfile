@@ -30,6 +30,14 @@ RUN apt-get update && apt-get install -y \
 	wget \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y software-properties-common
+
+RUN add-apt-repository universe && add-apt-repository ppa:certbot/certbot
+
+RUN apt-get update
+
+RUN apt-get install certbot
+
 RUN locale-gen en_US.UTF-8
 # We cannot use update-locale because docker will not use the env variables
 # configured in /etc/default/locale so we need to set it manually.
@@ -52,6 +60,6 @@ WORKDIR /home/coder/project
 VOLUME [ "/home/coder/project" ]
 
 COPY --from=0 /src/binaries/code-server /usr/local/bin/code-server
-EXPOSE 8080
+EXPOSE 8080 80 443
 
-ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
